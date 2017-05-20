@@ -1,6 +1,5 @@
 import MessageBuilder from '../src/MessageBuilder';
 import SessionTypes from '../src/SessionTypes';
-//import path from 'path';
 
 
 describe('MessageBuilder', () => {
