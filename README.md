@@ -1,0 +1,34 @@
+# airdcpp-message-emailer [![Travis][build-badge]][build] [![npm package][npm-badge]][npm]
+
+AirDC++ extensions that will send email summaries with new hub/private messages while you are away.
+
+## Example message summary
+
+```
+------- Private messages -------
+
+-- [VIP]Dev --
+
+[13:14:07] <[VIP]Dev> Just a test private messages
+[13:14:15] <[VIP]Dev> Another test message
+
+
+------- Hub messages -------
+
+-- AirDC++ Dev Hub --
+
+[13:13:57] <maksis> Spamming main chat
+
+
+-- Just another test hub --
+
+[13:14:02] <charlie> fav
+[13:16:57] <Tom> Any operators online?
+```
+
+
+[build-badge]: https://img.shields.io/travis/maksis/airdcpp-message-emailer/master.svg?style=flat-square
+[build]: https://travis-ci.org/maksis/airdcpp-message-emailer
+
+[npm-badge]: https://img.shields.io/npm/v/airdcpp-message-emailer.svg?style=flat-square
+[npm]: https://www.npmjs.org/package/airdcpp-message-emailer

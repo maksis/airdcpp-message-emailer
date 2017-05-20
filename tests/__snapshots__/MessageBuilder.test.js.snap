@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageBuilder should format messages 1`] = `
+"------- Private messages -------
+
+-- [100]User1 --
+
+[19:34:42] <TestNick1> TestMessage1
+[19:51:22] <TestNick2> TestMessage2
+
+
+-- [100]User2 --
+
+[19:34:42] <TestNick1> TestMessage1
+[19:51:22] <TestNick2> TestMessage2
+
+
+"
+`;
