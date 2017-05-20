@@ -1,7 +1,6 @@
 
-const timeOffset = (-1) * new Date().getTimezoneOffset() * 60 * 1000;
-
 const reduceMessageSummary = (reduced, message) => {
+	const timeOffset = (-1) * new Date().getTimezoneOffset() * 60 * 1000;
 	const timeString = new Date((message.time * 1e3) + timeOffset).toISOString().slice(-13, -5);
 	reduced += `[${timeString}] <${message.from.nick}> ${message.text}\n`;
 	return reduced;
