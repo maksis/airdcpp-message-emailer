@@ -60,6 +60,7 @@ module.exports = function (socket, extension) {
 
 	// Send cached messages (if there are any)
 	const flushCache = async () => {
+		socket.logger.verbose('Flushing cache...');
 		let messageSummary = '';
 		messageSummary += await MessageBuilder.constructSummary(SessionTypes.privateChat, privateMessages, privateChatInfoGetter);
 		messageSummary += await MessageBuilder.constructSummary(SessionTypes.hub, hubMessages, hubInfoGetter);
@@ -72,6 +73,8 @@ module.exports = function (socket, extension) {
 
 				socket.logger.info('Message %s sent: %s', info.messageId, info.response);
 			});
+		} else {
+			socket.logger.verbose('Nothing to send');
 		}
 
 		privateMessages = {};
@@ -81,6 +84,7 @@ module.exports = function (socket, extension) {
 
 	const onIncomingMessage = (messageCache, message, sessionId) => {
 		if (!hasConfig() || !settings.getValue('flush_interval')) {
+			socket.logger.verbose('Caching disabled due to current configuration');
 			return;
 		}
 		
@@ -88,7 +92,9 @@ module.exports = function (socket, extension) {
 		messageCache[sessionId].push(message);
 
 		if (!flushTimeout) {
-			flushTimeout = setTimeout(flushCache, settings.getValue('flush_interval') * 60 * 1000);
+			const flushMs = settings.getValue('flush_interval') * 60 * 1000;
+			socket.logger.verbose('Scheduling flush', flushMs);
+			flushTimeout = setTimeout(flushCache, flushMs);
 		}
 	};
 
@@ -98,26 +104,36 @@ module.exports = function (socket, extension) {
 		hostname = sessionInfo.system_info.hostname;
 		settings.onValuesUpdated = updatedValues => {
 			if (Object.keys(updatedValues).find(isSmtpSetting)) {
-				transporter = nodemailer.createTransport(constructSmtpSettings());
+				socket.logger.verbose('Creating mailer interface');
+				try {
+					transporter = nodemailer.createTransport(constructSmtpSettings());
+				} catch (e) {
+					socket.logger.error(`Failed to initialize mailer interface: ${e}`);
+					process.exit(1);
+				}
+
 				if (hasConfig()) {
 					transporter.verify((error, success) => {
+						socket.logger.verbose('Verifying settings');
 						if (error) {
 							socket.post('events', {
 								text: `${extension.name}: SMTP setting validation failed (${error})`,
 								severity: 'error',
 							});
-						} /*else {
-							socket.post('events', {
+						} else {
+							socket.logger.verbose('Setting validation succeeded');
+							/*socket.post('events', {
 								text: `${extension.name}: SMTP settings were validated successfully`,
 								severity: 'info',
-							});
-						}*/
+							});*/
+						}
 					});
 				}
 			}
 		};
 
 		await settings.load();
+		socket.logger.verbose('Settings were loaded');
 
 		if (settings.getValue('send_hub_logs')) {
 			socket.addListener('hubs', 'hub_message', onIncomingMessage.bind(this, hubMessages));
