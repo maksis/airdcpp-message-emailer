@@ -70,10 +70,14 @@ module.exports = function (socket, extension) {
 		if (messageSummary) {
 			transporter.sendMail(constructMail(messageSummary), (error, info) => {
 				if (error) {
-					socket.logger.error(error);
+					socket.logger.error(`Failed to send email: ${error}`);
+					socket.post('events', {
+						text: `${extension.name}: failed to email message summary (see the extension error log for more information)`,
+						severity: 'error',
+					});
+				} else {
+					socket.logger.info(`Message ${info.messageId} sent: ${info.response}`);
 				}
-
-				socket.logger.info('Message %s sent: %s', info.messageId, info.response);
 			});
 		} else {
 			socket.logger.verbose('Nothing to send');
