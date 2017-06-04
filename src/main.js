@@ -23,7 +23,7 @@ module.exports = function (socket, extension) {
 	let hostname;
 
 	const cache = {
-		privateMessage: {},
+		privateMessages: {},
 		hubMessages: {},
 	};
 
