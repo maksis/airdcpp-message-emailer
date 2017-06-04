@@ -22,8 +22,10 @@ module.exports = function (socket, extension) {
 	let flushTimeout;
 	let hostname;
 
-	let privateMessages = {};
-	let hubMessages = {};
+	const cache = {
+		privateMessage: {},
+		hubMessages: {},
+	};
 
 	const hasConfig = () => settings.getValue('to') !== DEFAULT_TO;
 
@@ -62,8 +64,8 @@ module.exports = function (socket, extension) {
 	const flushCache = async () => {
 		socket.logger.verbose('Flushing cache...');
 		let messageSummary = '';
-		messageSummary += await MessageBuilder.constructSummary(SessionTypes.privateChat, privateMessages, privateChatInfoGetter);
-		messageSummary += await MessageBuilder.constructSummary(SessionTypes.hub, hubMessages, hubInfoGetter);
+		messageSummary += await MessageBuilder.constructSummary(SessionTypes.privateChat, cache.privateMessages, privateChatInfoGetter);
+		messageSummary += await MessageBuilder.constructSummary(SessionTypes.hub, cache.hubMessages, hubInfoGetter);
 
 		if (messageSummary) {
 			transporter.sendMail(constructMail(messageSummary), (error, info) => {
@@ -77,19 +79,20 @@ module.exports = function (socket, extension) {
 			socket.logger.verbose('Nothing to send');
 		}
 
-		privateMessages = {};
-		hubMessages = {};
+		cache.privateMessages = {};
+		cache.hubMessages = {};
 		flushTimeout = undefined;
 	};
 
-	const onIncomingMessage = (messageCache, message, sessionId) => {
+	const onIncomingMessage = (cacheKey, message, sessionId) => {
 		if (!hasConfig() || !settings.getValue('flush_interval')) {
 			socket.logger.verbose('Caching disabled due to current configuration');
 			return;
 		}
 		
-		messageCache[sessionId] = messageCache[sessionId] || [];
-		messageCache[sessionId].push(message);
+		const sessionCache = cache[cacheKey];
+		sessionCache[sessionId] = sessionCache[sessionId] || [];
+		sessionCache[sessionId].push(message);
 
 		if (!flushTimeout) {
 			const flushMs = settings.getValue('flush_interval') * 60 * 1000;
@@ -136,11 +139,11 @@ module.exports = function (socket, extension) {
 		socket.logger.verbose('Settings were loaded');
 
 		if (settings.getValue('send_hub_logs')) {
-			socket.addListener('hubs', 'hub_message', onIncomingMessage.bind(this, hubMessages));
+			socket.addListener('hubs', 'hub_message', onIncomingMessage.bind(this, 'hubMessages'));
 		}
 
 		if (settings.getValue('send_private_logs')) {
-			socket.addListener('private_chat', 'private_chat_message', onIncomingMessage.bind(this, privateMessages));
+			socket.addListener('private_chat', 'private_chat_message', onIncomingMessage.bind(this, 'privateMessages'));
 		}
 	};
 

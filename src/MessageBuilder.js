@@ -12,6 +12,10 @@ const hasUnread = (sessionInfo) => {
 };
 
 const constructSummary = async ({ title, sessionNameGetter }, cache, sessionInfoGetter) => {
+	if (!cache) {
+		return '';
+	}
+
 	let sessionsInfos = (await Promise.all(Object.keys(cache)
 		.map(sessionInfoGetter)))
 		.filter(hasUnread);
