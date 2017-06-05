@@ -11,10 +11,10 @@
     "airdcpp-extensions",
     "airdcpp-extensions-public"
   ],
-  "bugs": "https://github.com/airdcpp-web/airdcpp-create-extension/issues/",
+  "bugs": "https://github.com/maksis/airdcpp-message-emailer/issues/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/airdcpp-web/airdcpp-create-extension/"
+    "url": "https://github.com/maksis/airdcpp-message-emailer/"
   },
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production webpack",
