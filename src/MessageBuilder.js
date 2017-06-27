@@ -11,13 +11,24 @@ const hasUnread = (sessionInfo) => {
 	return unread.bot > 0 || unread.user > 0;
 };
 
+const mapSessionInfo = async (sessionId, sessionInfoGetter) => {
+	try {
+		return await sessionInfoGetter(sessionId);
+	} catch (e) {
+		// Session removed, assume that is has been read
+	}
+
+	return null;
+};
+
 const constructSummary = async ({ title, sessionNameGetter }, cache, sessionInfoGetter) => {
 	if (!cache) {
 		return '';
 	}
 
-	let sessionsInfos = (await Promise.all(Object.keys(cache)
-		.map(sessionInfoGetter)))
+	const sessionsInfos = (await Promise.all(Object.keys(cache)
+		.map(sessionId => mapSessionInfo(sessionId, sessionInfoGetter))))
+		.filter(sessionInfo => !!sessionInfo)
 		.filter(hasUnread);
 
 	if (sessionsInfos.length == 0) {

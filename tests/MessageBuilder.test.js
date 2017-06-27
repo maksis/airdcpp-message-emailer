@@ -102,4 +102,11 @@ describe('MessageBuilder', () => {
 		const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
 		expect(summary).toEqual('');
 	});
+
+	test('should handle removed sessions', async () => {
+		const sessionInfoGetter = sessionId => Promise.reject('Session removed');
+
+		const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
+		expect(summary).toEqual('');
+	});
 });
