@@ -1,6 +1,6 @@
 {
   "name": "airdcpp-message-emailer",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Sends email summaries with unread hub/private messages",
   "license": "MIT",
   "author": {
