@@ -15,7 +15,7 @@
     "transform-regenerator",
     ["transform-runtime", {
       "polyfill": true,
-      "regenerator": true,
+      "regenerator": true
     }]
   ]
 }

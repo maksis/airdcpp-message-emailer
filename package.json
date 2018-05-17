@@ -37,7 +37,7 @@
     "cross-env": "^5.1.5",
     "jest": "^22.4.3",
     "jest-cli": "^22.4.3",
-    "nodemailer": "^4.6.4",
+    "nodemailer": "4.3.1",
     "nodemon": "^1.17.4",
     "rimraf": "^2.6.2",
     "sendmail": "^1.4.1",
