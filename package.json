@@ -1,6 +1,6 @@
 {
   "name": "airdcpp-message-emailer",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Sends email summaries with unread hub/private messages",
   "license": "MIT",
   "author": {
@@ -20,7 +20,7 @@
     "build": "npm run clean && cross-env NODE_ENV=production webpack",
     "clean": "rimraf dist",
     "start": "node devtools/watch.js ../dist/main.js",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "webpack": "webpack",
     "test": "jest"
   },
