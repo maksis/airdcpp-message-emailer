@@ -1,6 +1,6 @@
 # airdcpp-message-emailer [![Travis][build-badge]][build] [![npm package][npm-badge]][npm]
 
-AirDC++ extensions that will send email summaries with new hub/private messages while you are away.
+AirDC++ extension that will send email summaries containing newly received hub/private messages while you are away.
 
 ## Example message summary
 
