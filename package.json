@@ -39,6 +39,7 @@
     "jest-cli": "^24.5.0",
     "nodemailer": "4.3.1",
     "nodemon": "^1.18.10",
+    "pre-commit": "^1.2.2",
     "rimraf": "^2.6.3",
     "sendmail": "^1.4.1",
     "source-map-support": "^0.5.11",
@@ -50,6 +51,9 @@
     "apiVersion": 1,
     "minApiFeatureLevel": 0
   },
+  "pre-commit": [
+    "test"
+  ],
   "jest": {
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
