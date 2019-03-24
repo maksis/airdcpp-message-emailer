@@ -43,12 +43,19 @@ module.exports = {
   module: {
     rules: [
       { 
-        test: /\.(js)$/, 
-        include: function(absPath) {
-          // nodemailer must be transpiled for compatibility with older versions of node
-          return /node_modules(\/|\\)nodemailer*/.test(absPath) || /src/.test(absPath);
-        }, 
-        use: 'babel-loader',
+        test: /\.(js)$/,  
+        include: [
+          path.resolve('src'),
+          path.resolve('node_modules/nodemailer'),
+        ],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              sourceType: 'unambiguous'
+            }
+          }
+        ]
       }
     ]
   },

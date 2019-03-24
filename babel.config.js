@@ -1,17 +1,24 @@
-{
-  "presets": [ 
+module.exports = function (api) {
+  api.cache(true);
+
+  const presets = [ 
     ["@babel/env", {
       "targets": {
         "node": "0.10"
       }
     }]
-  ],
-  "plugins": [
+  ];
+
+  const plugins = [
     "@babel/plugin-transform-async-to-generator",
     "array-includes",
     ["@babel/plugin-transform-runtime", {
       "regenerator": true
     }]
-  ],
-  "sourceType": "unambiguous"
+  ];
+
+  return {
+    presets,
+    plugins
+  }
 }
