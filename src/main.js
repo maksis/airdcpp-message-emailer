@@ -10,7 +10,7 @@ const CONFIG_VERSION = 1;
 
 const SettingsManager = require('airdcpp-extension-settings');
 
-module.exports = function (socket, extension) {
+export default function (socket, extension) {
 	const settings = SettingsManager(socket, {
 		extensionName: extension.name, 
 		configFile: extension.configPath + 'config.json',
@@ -37,11 +37,11 @@ module.exports = function (socket, extension) {
 		}
 
 		const user = settings.getValue('smtp_user');
-		const password = settings.getValue('smtp_password');
-		if (user && password) {
+		const pass = settings.getValue('smtp_password');
+		if (user && pass) {
 			ret['auth'] = {
 				user,
-				password,
+				pass,
 			}
 		}
 
