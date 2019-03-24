@@ -1,6 +1,6 @@
 {
   "name": "airdcpp-message-emailer",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "Sends email summaries with unread hub/private messages",
   "license": "MIT",
   "author": {
@@ -30,7 +30,7 @@
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/runtime": "^7.4.2",
-    "airdcpp-extension": "^1.1.0-beta",
+    "airdcpp-extension": "^1.1.0",
     "airdcpp-extension-settings": "^1.1.0-beta",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.5",
