@@ -2,6 +2,10 @@
 
 AirDC++ extension that will send email summaries containing newly received hub/private messages while you are away.
 
+## What's new in each version
+
+[Changelog](https://github.com/maksis/airdcpp-message-emailer/blob/master/CHANGELOG.md)
+
 ## Example message summary
 
 ```
