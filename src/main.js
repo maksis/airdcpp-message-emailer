@@ -120,7 +120,7 @@ export default function (socket, extension) {
 				}
 
 				if (hasConfig()) {
-					transporter.verify((error, success) => {
+					transporter.verify((error, /*success*/) => {
 						socket.logger.verbose('Verifying settings');
 						if (error) {
 							socket.post('events', {
@@ -154,4 +154,4 @@ export default function (socket, extension) {
 	extension.onStop = () => {
 		clearTimeout(flushTimeout);
 	};
-};
+}
