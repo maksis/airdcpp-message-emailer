@@ -10,7 +10,8 @@
       "sourceType": "module"
   },
   "rules": {
-      "no-extra-boolean-cast": 0
+      "no-extra-boolean-cast": 0,
+      "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}]
   },
   "plugins": ["jest"]
 }
