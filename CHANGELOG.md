@@ -1,3 +1,7 @@
+### Version 1.0.3 (2021-01-01)
+
+- Prevent exits due to timeouts when the system is unresponsive (only when using AirDC++ 4.01 or AirDC++ Web Client 2.11.0)
+
 ### 1.0.2 (2020-12-08)
 
 - Update dependencies
