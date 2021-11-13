@@ -8,7 +8,7 @@ var release = process.env.NODE_ENV === 'production';
 var plugins = [
   // Optional binary requires that should be ignored
   new webpack.IgnorePlugin({
-    contentRegExp: /.*\/build\/.*\/(validation|bufferutil)/
+    resourceRegExp: /.*\/build\/.*\/(validation|bufferutil)/
   }),
   new webpack.DefinePlugin({
     'EXTENSION_NAME': JSON.stringify(packageJson.name),
