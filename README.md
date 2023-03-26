@@ -1,4 +1,4 @@
-# airdcpp-message-emailer [![Travis][build-badge]][build] [![npm package][npm-badge]][npm]
+# airdcpp-message-emailer [![Travis][build-badge]][build] [![npm package][npm-badge]][npm] [![Coverage][coverage-badge]][coverage]
 
 AirDC++ extension that will send email summaries containing newly received hub/private messages while you are away.
 
@@ -31,8 +31,11 @@ AirDC++ extension that will send email summaries containing newly received hub/p
 ```
 
 
-[build-badge]: https://img.shields.io/travis/maksis/airdcpp-message-emailer/master.svg?style=flat-square
-[build]: https://travis-ci.org/maksis/airdcpp-message-emailer
+[build-badge]: https://github.com/maksis/airdcpp-message-emailer/actions/workflows/node.js.yml/badge.svg
+[build]: https://github.com/maksis/airdcpp-message-emailer/actions/workflows/node.js.yml
 
 [npm-badge]: https://img.shields.io/npm/v/airdcpp-message-emailer.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/airdcpp-message-emailer
+
+[coverage-badge]: https://codecov.io/gh/maksis/airdcpp-message-emailer/branch/master/graph/badge.svg
+[coverage]: https://codecov.io/gh/maksis/airdcpp-message-emailer
