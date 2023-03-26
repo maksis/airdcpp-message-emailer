@@ -4,18 +4,12 @@ module.exports = function (api) {
   const presets = [ 
     ["@babel/env", {
       "targets": {
-        "node": "0.10"
+        "node": "12.0"
       }
     }]
   ];
 
-  const plugins = [
-    "@babel/plugin-transform-async-to-generator",
-    "array-includes",
-    ["@babel/plugin-transform-runtime", {
-      "regenerator": true
-    }]
-  ];
+  const plugins = [];
 
   return {
     presets,
