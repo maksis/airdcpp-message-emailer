@@ -1,3 +1,7 @@
+### Version 1.0.5 (2024-10-25)
+
+- Update all dependencies, target newer Node.js versions
+
 ### Version 1.0.4 (2021-01-05)
 
 - Avoid timeouts when the system is unresponsive
