@@ -9,34 +9,31 @@
 			"request": "launch",
 			"console": "integratedTerminal",
 			"name": "Launch Program",
-			"program": "${workspaceRoot}\\devtools\\dev-server.js",
+			"program": "${workspaceFolder}/devtools/dev-server.cjs",
 			"protocol": "inspector",
-			"cwd": "${workspaceRoot}",
-			"outFiles": [ "${workspaceRoot}/dist/*.js" ],
-			"preLaunchTask": "webpack"
-		}, {
-			"name": "Run Tests With Debugger",
-			"type": "node",
-			"request": "launch",
-			"port": 5858,
-			"address": "localhost",
-			"stopOnEntry": false,
-			"runtimeExecutable": null,
-			"sourceMaps": true,
-			"runtimeArgs": [
-				"--inspect-brk=5858",
-				"./node_modules/jest-cli/bin/jest.js",
-				"-i",
-				"--runInBand"
-			],
-			"cwd": "${workspaceRoot}"
-		}/*,
+			"cwd": "${workspaceFolder}",
+			"outFiles": [ "${workspaceFolder}/dist/*.cjs" ]
+		},
 		{
 			"type": "node",
 			"request": "attach",
 			"name": "Attach to Process",
 			"address": "localhost",
-			"port": 5858
-		}*/
+			"port": 5858,
+			"restart": true,
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceFolder}/dist/**/*.cjs",
+				"C:/Projects/airdcpp-windows/**/extensions/**/airdcpp-message-emailer/**/dist/**/*.cjs"
+			],
+			"sourceMapPathOverrides": {
+				"../src/*": "${workspaceFolder}/src/*",
+				"../../src/*": "${workspaceFolder}/src/*",
+				"src/*": "${workspaceFolder}/src/*"
+			},
+			"skipFiles": [
+				"<node_internals>/**"
+			]
+		}
 	]
 }
