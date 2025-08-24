@@ -9,7 +9,6 @@ export type SessionId = string | number;
 export type SessionInfoGetter = (id: SessionId) => Promise<SessionInfo>;
 
 export type SessionBase = {
-  // id: SessionId;
   message_counts: {
     unread: {
       bot: number;

@@ -1,17 +1,17 @@
 {
   "env": {
-      "node": true,
-      "es2021": true,
-      "jest/globals": true
+    "node": true,
+    "es2021": true,
+    "vitest/globals": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-      "ecmaVersion": 12,
-      "sourceType": "module"
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
   "rules": {
-      "no-extra-boolean-cast": 0,
-      "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}]
+    "no-extra-boolean-cast": 0,
+    "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}]
   },
-  "plugins": ["jest"]
+  "plugins": []
 }
