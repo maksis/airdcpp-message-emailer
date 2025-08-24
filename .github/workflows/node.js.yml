@@ -33,4 +33,4 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        slug: airdcpp-web/airdcpp-message-emailer
+        slug: maksis/airdcpp-message-emailer
