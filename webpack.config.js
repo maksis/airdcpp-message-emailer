@@ -33,7 +33,7 @@ if (!release) {
 
 module.exports = {
 	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  entry: release ? './src/index.js' : './src/main.js',
+  entry: release ? './src/index.ts' : './src/main.ts',
   target: 'node',
   output: {
     path: path.join(__dirname, 'dist'),
@@ -44,21 +44,23 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      { 
-        test: /\.(js)$/,  
+      {
+        test: /\.(ts|js)$/,
         include: [
           path.resolve('src'),
-          path.resolve('node_modules/nodemailer'),
         ],
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'ts-loader',
             options: {
-              sourceType: 'unambiguous'
+              transpileOnly: true
             }
           }
         ]
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
   },
 }

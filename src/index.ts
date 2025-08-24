@@ -1,6 +1,5 @@
-require("source-map-support").install();
-const ManagedExtension = require('airdcpp-extension').ManagedExtension;
-
+import 'source-map-support/register';
+import { ManagedExtension } from 'airdcpp-extension';
 
 // Entry point that is executed by the extension manager
 //
@@ -8,6 +7,6 @@ const ManagedExtension = require('airdcpp-extension').ManagedExtension;
 // generally contain any extension-specific code
 
 // See https://github.com/airdcpp-web/airdcpp-extension-js for usage information
-ManagedExtension(require('./main.js'), {
+ManagedExtension(require('./main').default, {
   // Possible custom options for airdcpp-apisocket can be listed here
 });

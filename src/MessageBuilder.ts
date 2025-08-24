@@ -1,17 +1,22 @@
+import { Message, SessionType, MessageCache, SessionInfoGetter, SessionInfo, SessionId } from './types';
 
-const reduceMessageSummary = (reduced, message) => {
+const formatTimeStamp = (time: number) => {
   const timeOffset = (-1) * new Date().getTimezoneOffset() * 60 * 1000;
-  const timeString = new Date((message.time * 1e3) + timeOffset).toISOString().slice(-13, -5);
+  return new Date((time * 1e3) + timeOffset).toISOString().slice(-13, -5);
+}
+
+const reduceMessageSummary = (reduced: string, message: Message) => {
+  const timeString = formatTimeStamp(message.time);
   reduced += `[${timeString}] <${message.from.nick}> ${message.text}\n`;
   return reduced;
 };
 
-const hasUnread = (sessionInfo) => {
+const hasUnread = (sessionInfo: SessionInfo) => {
   const { unread } = sessionInfo.message_counts;
   return unread.bot > 0 || unread.user > 0;
 };
 
-const mapSessionInfo = async (sessionId, sessionInfoGetter) => {
+const mapSessionInfo = async (sessionId: SessionId, sessionInfoGetter: SessionInfoGetter) => {
   try {
     return await sessionInfoGetter(sessionId);
   } catch (e) {
@@ -21,7 +26,7 @@ const mapSessionInfo = async (sessionId, sessionInfoGetter) => {
   return null;
 };
 
-const constructSummary = async ({ title, sessionNameGetter }, cache, sessionInfoGetter) => {
+const constructSummary = async ({ title, sessionNameGetter }: SessionType, cache: MessageCache, sessionInfoGetter: SessionInfoGetter) => {
   if (!cache) {
     return '';
   }
@@ -39,7 +44,7 @@ const constructSummary = async ({ title, sessionNameGetter }, cache, sessionInfo
   ret += `------- ${title} -------`;
   ret += '\n\n';
 
-  return sessionsInfos.reduce((reduced, sessionInfo) => {
+  return sessionsInfos.reduce((reduced: string, sessionInfo: any) => {
     reduced += `-- ${sessionNameGetter(sessionInfo)} --`;
     reduced += '\n\n';
     

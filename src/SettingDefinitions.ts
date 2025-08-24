@@ -1,6 +1,15 @@
 export const DEFAULT_TO = 'disabled@example.com';
 
-export const SettingDefinitions = [
+export type SettingDefinition = {
+  key: string;
+  title: string;
+  default_value?: string | number | boolean;
+  optional?: boolean;
+  type: 'boolean' | 'number' | 'string';
+  help?: string;
+};
+
+export const SettingDefinitions: SettingDefinition[] = [
   {
     key: 'send_private_logs',
     title: 'Email private message logs',

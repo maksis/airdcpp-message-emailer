@@ -1,5 +1,6 @@
 import MessageBuilder from '../src/MessageBuilder';
 import SessionTypes from '../src/SessionTypes';
+import { SessionId } from '../src/types';
 
 
 describe('MessageBuilder', () => {
@@ -76,7 +77,7 @@ describe('MessageBuilder', () => {
     },
   };
 
-  const cache = {
+  const cache: Record<string, any[]> = {
     [privateChatId1]: [
       message1,
       message2,
@@ -88,21 +89,23 @@ describe('MessageBuilder', () => {
   };
 
   test('should format messages', async () => {
-    const sessionInfoGetter = sessionId => sessionId === privateChatId1 ? sessionInfo1 : sessionInfo2;
+    const sessionInfoGetter = (sessionId: SessionId) => {
+      return Promise.resolve(sessionId === privateChatId1 ? sessionInfo1 : sessionInfo2);
+    };
 
     const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
     expect(summary).toMatchSnapshot();
   });
 
   test('should skip read sessions', async () => {
-    const sessionInfoGetter = (_sessionId) => readSessionInfo
+    const sessionInfoGetter = (_sessionId: SessionId) => Promise.resolve(readSessionInfo);
 
     const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
     expect(summary).toEqual('');
   });
 
   test('should handle removed sessions', async () => {
-    const sessionInfoGetter = (_sessionId) => Promise.reject('Session removed');
+    const sessionInfoGetter = (_sessionId: SessionId) => Promise.reject('Session removed');
 
     const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
     expect(summary).toEqual('');
