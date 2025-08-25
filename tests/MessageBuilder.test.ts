@@ -1,5 +1,5 @@
-import MessageBuilder from '../src/MessageBuilder';
-import SessionTypes from '../src/SessionTypes';
+import MessageBuilder from '../src/messages/MessageBuilder';
+import { SessionParsers } from '../src/messages/SessionParsers';
 import { SessionId } from '../src/types';
 
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
@@ -95,21 +95,21 @@ describe('MessageBuilder', () => {
       return Promise.resolve(sessionId === privateChatId1 ? sessionInfo1 : sessionInfo2);
     };
 
-    const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
     expect(summary).toMatchSnapshot();
   });
 
   test('should skip read sessions', async () => {
     const sessionInfoGetter = (_sessionId: SessionId) => Promise.resolve(readSessionInfo);
 
-    const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
     expect(summary).toEqual('');
   });
 
   test('should handle removed sessions', async () => {
     const sessionInfoGetter = (_sessionId: SessionId) => Promise.reject('Session removed');
 
-    const summary = await MessageBuilder.constructSummary(SessionTypes.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
     expect(summary).toEqual('');
   });
 });

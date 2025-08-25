@@ -7,9 +7,7 @@ import init from './main';
 // The file isn't executed when running development server so it shouldn't 
 // generally contain any extension-specific code
 
-setTimeout(() => {
-  // See https://github.com/airdcpp-web/airdcpp-extension-js for usage information
-  ManagedExtension(init, {
-    // Possible custom options for airdcpp-apisocket can be listed here
-  });
-}, 10000);
+// See https://github.com/airdcpp-web/airdcpp-extension-js for usage information
+ManagedExtension(init, {
+  // Possible custom options for airdcpp-apisocket can be listed here
+});

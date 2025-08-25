@@ -1,14 +1,12 @@
-import { HubSession, PrivateChatSession, SessionType } from "./types";
+import { HubSession, PrivateChatSession, SessionParser } from "../types";
 
-const SessionTypes = {
+export const SessionParsers = {
   hub: {
     title: 'Hub messages',
     sessionNameGetter: (sessionInfo: HubSession) => sessionInfo.identity.name,
-  } as SessionType,
+  } as SessionParser,
   privateChat: {
     title: 'Private messages',
     sessionNameGetter: (sessionInfo: PrivateChatSession) => sessionInfo.user.nicks,
-  } as SessionType,
+  } as SessionParser,
 };
-
-export default SessionTypes;

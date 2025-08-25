@@ -6,7 +6,13 @@ export type Message = {
 
 export type SessionId = string | number;
 
-export type SessionInfoGetter = (id: SessionId) => Promise<SessionInfo>;
+export const enum SeverityEnum {
+  NOTIFY = 'notify',
+  INFO = 'info',
+  WARNING = 'warning',
+  ERROR = 'error',
+}
+
 
 export type SessionBase = {
   message_counts: {
@@ -37,12 +43,3 @@ export type PrivateChatSession = SessionBase & {
 };
 
 export type SessionInfo = HubSession | PrivateChatSession;
-
-export type SessionNameGetter = (sessionInfo: SessionInfo) => string;
-
-export type SessionType = {
-  title: string;
-  sessionNameGetter: SessionNameGetter;
-};
-
-export type MessageCache = Record<string, Message[]>;

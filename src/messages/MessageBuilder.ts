@@ -1,4 +1,4 @@
-import { Message, SessionType, MessageCache, SessionInfoGetter, SessionInfo, SessionId } from './types';
+import { Message, SessionParser, MessageCache, SessionInfoGetter, SessionInfo, SessionId } from '../types';
 
 const formatTimeStamp = (time: number) => {
   const timeOffset = (-1) * new Date().getTimezoneOffset() * 60 * 1000;
@@ -26,7 +26,7 @@ const mapSessionInfo = async (sessionId: SessionId, sessionInfoGetter: SessionIn
   return null;
 };
 
-const constructSummary = async ({ title, sessionNameGetter }: SessionType, cache: MessageCache, sessionInfoGetter: SessionInfoGetter) => {
+const constructSummary = async ({ title, sessionNameGetter }: SessionParser, cache: MessageCache, sessionInfoGetter: SessionInfoGetter) => {
   if (!cache) {
     return '';
   }

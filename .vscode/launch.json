@@ -24,13 +24,7 @@
 			"sourceMaps": true,
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.cjs",
-				"C:/Projects/airdcpp-windows/**/extensions/**/airdcpp-message-emailer/**/dist/**/*.cjs"
 			],
-			"sourceMapPathOverrides": {
-				"../src/*": "${workspaceFolder}/src/*",
-				"../../src/*": "${workspaceFolder}/src/*",
-				"src/*": "${workspaceFolder}/src/*"
-			},
 			"skipFiles": [
 				"<node_internals>/**"
 			]
