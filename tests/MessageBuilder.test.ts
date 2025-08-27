@@ -1,8 +1,9 @@
 import MessageBuilder from '../src/messages/MessageBuilder';
-import { SessionParsers } from '../src/messages/SessionParsers';
+import { SessionPropertyParsers } from '../src/messages/SessionPropertyParsers';
 import { SessionId } from '../src/types';
 
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
+import { HubUser1, HubUser2, MessageCountsRead, PrivateChat1, PrivateChat2, User1Message1, User1Message2, User2Message1, User2Message2 } from './mocks/mock-entities';
 
 
 describe('MessageBuilder', () => {
@@ -18,98 +19,40 @@ describe('MessageBuilder', () => {
     Date.prototype.getTimezoneOffset = getTimezoneOffset;
   });
 
-  const message1 = {
-    from: {
-      nick: 'TestNick1'
-    },
-    text: 'TestMessage1',
-    time: 1494434082,
-  };
-
-  const message2 = {
-    from: {
-      nick: 'TestNick2'
-    },
-    text: 'TestMessage2',
-    time: 1494435082,
-  };
-
-  const privateChatId1 = 'VZILDK44YRK37UJBED2KLZSORDWRKMLDIYIRULY';
-  const privateChatId2 = 'AZILDK44YRK37UJFED2KLZSORDWRKMLDIYIRULY';
-
-  const sessionInfo1 = {
-    id: privateChatId1,
-    user: {
-      nicks: '[100]User1',
-    },
-    message_counts: {
-      unread: {
-        bot: 0,
-        status: 0,
-        user: 2,
-      },
-    },
-  };
-
-  const sessionInfo2 = {
-    id: privateChatId2,
-    user: {
-      nicks: '[100]User2',
-    },
-    message_counts: {
-      unread: {
-        bot: 0,
-        status: 0,
-        user: 1,
-      },
-    },
-  };
-
-
-  const readSessionInfo = {
-    user: {
-      nicks: '[100]SeenUser',
-    },
-    message_counts: {
-      unread: {
-        bot: 0,
-        status: 0,
-        user: 0,
-      },
-    },
-  };
-
   const cache: Record<string, any[]> = {
-    [privateChatId1]: [
-      message1,
-      message2,
-    ], 
-    [privateChatId2]: [
-      message1,
-      message2,
+    [HubUser1.cid]: [
+      User1Message1,
+      User1Message2,
+    ],
+    [HubUser2.cid]: [
+      User2Message1,
+      User2Message2,
     ]
   };
 
   test('should format messages', async () => {
-    const sessionInfoGetter = (sessionId: SessionId) => {
-      return Promise.resolve(sessionId === privateChatId1 ? sessionInfo1 : sessionInfo2);
+    const SessionInfoFetcher = (sessionId: SessionId) => {
+      return Promise.resolve(sessionId === PrivateChat1.id ? PrivateChat1 : PrivateChat2);
     };
 
-    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionPropertyParsers.privateChat, cache, SessionInfoFetcher);
     expect(summary).toMatchSnapshot();
   });
 
   test('should skip read sessions', async () => {
-    const sessionInfoGetter = (_sessionId: SessionId) => Promise.resolve(readSessionInfo);
+    const SessionInfoFetcher = (_sessionId: SessionId) => Promise.resolve({
+      ...PrivateChat1,
+      message_counts: MessageCountsRead
+    });
 
-    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionPropertyParsers.privateChat, cache, SessionInfoFetcher);
     expect(summary).toEqual('');
   });
 
   test('should handle removed sessions', async () => {
-    const sessionInfoGetter = (_sessionId: SessionId) => Promise.reject('Session removed');
+    const SessionInfoFetcher = (_sessionId: SessionId) => Promise.reject('Session removed');
 
-    const summary = await MessageBuilder.constructSummary(SessionParsers.privateChat, cache, sessionInfoGetter);
+    const summary = await MessageBuilder.constructSummary(SessionPropertyParsers.privateChat, cache, SessionInfoFetcher);
     expect(summary).toEqual('');
   });
 });

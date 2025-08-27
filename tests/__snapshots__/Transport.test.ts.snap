@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Transport > should send email 1`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      {
+        "from": ""AirDC++" <example@example.com>",
+        "subject": "Chat summary from AirDC++ (mock hostname)",
+        "text": "Test message summary",
+        "to": "to@example.com",
+      },
+      [Function],
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

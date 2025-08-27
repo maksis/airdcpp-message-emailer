@@ -1,6 +1,6 @@
 import { HubSession, PrivateChatSession, SessionParser } from "../types";
 
-export const SessionParsers = {
+export const SessionPropertyParsers = {
   hub: {
     title: 'Hub messages',
     sessionNameGetter: (sessionInfo: HubSession) => sessionInfo.identity.name,

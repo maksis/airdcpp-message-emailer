@@ -10,7 +10,7 @@ export default defineConfig({
       reportsDirectory: './coverage',
       reporter: ['text', 'lcov', 'clover'],
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['dist/**', 'node_modules/**', 'tests/**', 'devtools/**', 'webpack.config.js', 'vitest.config.ts', 'types/**'],
+      exclude: ['dist/**', 'node_modules/**', 'tests/**', 'devtools/**', 'webpack.config.js', 'vitest.config.ts', 'src/types/**', 'src/index.ts'],
     },
   },
 });

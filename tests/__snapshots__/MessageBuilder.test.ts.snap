@@ -5,14 +5,14 @@ exports[`MessageBuilder > should format messages 1`] = `
 
 -- [100]User1 --
 
-[19:34:42] <TestNick1> TestMessage1
-[19:51:22] <TestNick2> TestMessage2
+[19:34:42] <[100]User1> User 1 message 1
+[19:43:02] <[100]User1> User 1 message 2
 
 
 -- [100]User2 --
 
-[19:34:42] <TestNick1> TestMessage1
-[19:51:22] <TestNick2> TestMessage2
+[19:51:22] <[100]User2> User 2 message 1
+[19:59:42] <[100]User2> User 2 message 2
 
 
 "

@@ -8,6 +8,6 @@ export type SettingGetter = (key: string) => any;
 export interface Context {
   api: APIType;
   logger: Logger;
-  extension: ExtensionEntryData;
+  extension: Pick<ExtensionEntryData, 'name'>;
   getExtSetting: SettingGetter;
 }

@@ -1,11 +1,11 @@
 import { APISocket } from 'airdcpp-apisocket';
-import { SessionInfoGetter } from './types/types';
-import { SeverityEnum } from './types';
+import { SessionInfoFetcher } from './types/types';
+import { HubSession, PrivateChatSession, SeverityEnum } from './types';
 
 
 export const API = (socket: APISocket) => {
-  const getPrivateChatSession: SessionInfoGetter = (sessionId) => socket.get(`private_chat/${sessionId}`);
-  const getHubSession: SessionInfoGetter = (sessionId) => socket.get(`hubs/${sessionId}`);
+  const getPrivateChatSession: SessionInfoFetcher<PrivateChatSession> = (sessionId) => socket.get(`private_chat/${sessionId}`);
+  const getHubSession: SessionInfoFetcher<HubSession> = (sessionId) => socket.get(`hubs/${sessionId}`);
 
 
   const postEvent = async (text: string, severity: SeverityEnum) => {

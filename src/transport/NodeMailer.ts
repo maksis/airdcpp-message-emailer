@@ -2,12 +2,20 @@ import nodemailer from 'nodemailer';
 
 import { Context, SeverityEnum } from '../types';
 import { hasConfig } from '../utils';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
-export const NodeMailer = (context: Context) => {
+export interface Mailer {
+  sendMail: nodemailer.Transporter['sendMail'];
+  verify: nodemailer.Transporter['verify'];
+}
+
+export type MailerCreator = (settings: SMTPTransport.Options | SMTPTransport) => Mailer;
+
+export const NodeMailer = (context: Context, createTransport: MailerCreator = nodemailer.createTransport) => {
   const { api, logger, getExtSetting, extension } = context;
 
   let hostname: string;
-  let transporter: nodemailer.Transporter | undefined;
+  let transporter: Mailer | undefined;
 
   const constructSmtpSettings = () => {
     const ret = {
@@ -39,11 +47,6 @@ export const NodeMailer = (context: Context) => {
     return mailOptions;
   };
 
-  const createTransporter = () => {
-    const smtpSettings = constructSmtpSettings();
-    return nodemailer.createTransport(smtpSettings);
-  };
-
   const sendMail = (messageSummary: string) => {
     transporter!.sendMail(constructMail(messageSummary), (error: any, info: any) => {
       if (error) {
@@ -53,7 +56,7 @@ export const NodeMailer = (context: Context) => {
         logger.info(`Message ${info.messageId} sent: ${info.response}`);
       }
     });
-  }
+  };
 
   
   const reset = (newHostName: string) => {
@@ -61,7 +64,7 @@ export const NodeMailer = (context: Context) => {
 
     logger.verbose('Creating mailer interface');
     try {
-      transporter = nodemailer.createTransport(constructSmtpSettings());
+      transporter = createTransport(constructSmtpSettings());
     } catch (e) {
       logger.error(`Failed to initialize mailer interface: ${e}`);
       process.exit(1);
@@ -80,7 +83,6 @@ export const NodeMailer = (context: Context) => {
   }
 
   return {
-    createTransporter,
     sendMail,
     reset,
   };

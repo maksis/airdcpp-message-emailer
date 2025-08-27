@@ -3,7 +3,7 @@ import { APISocket } from 'airdcpp-apisocket';
 import SettingsManager from 'airdcpp-extension-settings';
 import { ExtensionEntryData } from 'airdcpp-extension';
 
-import { SettingDefinitions } from './settings';
+import { HubMessageCollectorMode, PrivateChatCollectorMode, SettingDefinitions } from './settings';
 
 import { MessageCollector } from './messages';
 import { NodeMailer } from './transport';
@@ -44,11 +44,11 @@ export default function init(socket: APISocket, extension: ExtensionEntryData) {
     await settings.load();
     socket.logger.verbose('Settings were loaded');
 
-    if (settings.getValue('send_hub_logs')) {
+    if (settings.getValue('hub_message_mode') != HubMessageCollectorMode.DISABLED) {
       socket.addListener('hubs', 'hub_message', messageCollector.onHubMessage);
     }
 
-    if (settings.getValue('send_private_logs')) {
+    if (settings.getValue('private_chat_message_mode') != PrivateChatCollectorMode.DISABLED) {
       socket.addListener('private_chat', 'private_chat_message', messageCollector.onPrivateMessage);
     }
   };

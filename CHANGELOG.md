@@ -1,3 +1,10 @@
+### Version 2.0.0 (2025-xx-xx)
+
+Major rewrite focused on control, reliability, and modern tooling.
+
+- Granular message selection: choose exactly what gets included in email summaries
+- Modern toolchain and faster builds (TypeScript + Vite + Vitest)
+
 ### Version 1.0.5 (2024-10-25)
 
 - Update all dependencies, target newer Node.js versions
