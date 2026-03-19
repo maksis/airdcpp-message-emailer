@@ -1,5 +1,5 @@
 
-import TTLCache from '@isaacs/ttlcache';
+import { TTLCache } from '@isaacs/ttlcache';
 import { SessionBase, SessionId, SessionInfoFetcher } from '../types';
 
 const SESSION_CACHE_TTL = 1000 * 60 * 5; // 5 minutes
@@ -9,7 +9,7 @@ export const SessionCache = <SessionType extends SessionBase>(sessionInfoFetcher
 
   const getSession = async (sessionId: SessionId, ignoreCache = false) => {
     if (!ignoreCache) {
-      const cached = await cache.get(sessionId);
+      const cached = cache.get(sessionId);
       if (cached) {
         return cached;
       }

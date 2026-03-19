@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`MessageCollector > should collect messages 1`] = `
-[MockFunction spy] {
+[MockFunction] {
   "calls": [
     [
       "------- Private messages -------

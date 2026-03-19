@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
   formats: ['cjs'],
   fileName: () => 'main.cjs',
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [
         ...builtinModules,
         ...builtinModules.map((m) => `node:${m}`),
@@ -30,9 +30,9 @@ export default defineConfig(({ mode }) => ({
       ],
       output: {
         exports: 'auto',
+        minify: mode === 'production',
       },
     },
     target: 'node18',
-  minify: mode === 'production' ? 'esbuild' : false,
   },
 }));
